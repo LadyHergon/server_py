@@ -1,0 +1,4 @@
+CLI.txt
+.vscode/
+__pycache__/
+db.sqlite3
