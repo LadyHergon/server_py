@@ -14,6 +14,8 @@ To get started
 6. Start the server by
     python manage.py runserver
 
+Temperory Link on Heroku
+https://a17kedjango.herokuapp.com/
 
 Credit to
 Assoc. Prof. Muhammad Mun`im Bin Ahmad Zabidi
