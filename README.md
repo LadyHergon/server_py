@@ -2,8 +2,9 @@
 
 To get started
 * Install python (I'm using version 3.7.9, didn't try yet for other version)
-* Install pip: 
-    >python get-pip.py
+    >https://www.python.org/downloads/windows/ (Windows)
+    
+    >sudo apt-get install python3.7  (Linux)
 * Create Virtual Environment (venv):
     >python venv venv
 * Activate virtual environment:
