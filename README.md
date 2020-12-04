@@ -31,5 +31,9 @@ Credit to
 Assoc. Prof. Muhammad Munim Bin Ahmad Zabidi
 >munim@utm.my
 
+Reference
 Corey Schafer 
 >https://www.youtube.com/c/Coreyms
+
+Django Google Drive Storage
+>https://django-googledrive-storage.readthedocs.io/en/latest/
