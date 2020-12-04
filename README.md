@@ -13,7 +13,7 @@ To get started
     >venv/bin/activate (Linux)
 * Install package:
     >pip install -r requirements.txt
-* Environment Varible
+* Environment Varible (EMAIL_USER, EMAIL_PASS, GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE_CONTENTS)
     * For windows
       >https://www.youtube.com/watch?v=IolxqkL7cD8
     * For Linux 
