@@ -14,9 +14,9 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     date_posted = models.DateTimeField(default=timezone.now)
-    audio = models.FileField(null=True, upload_to='musics')
-    image = models.ImageField(default='audio-image/' + str(uuid.uuid4()) + ".png" ,
-                            null=True, upload_to='audio-image', storage=gd_storage)
+    audio = models.FileField(null=True, upload_to='./musics')
+    image = models.ImageField(default='./audio-image/' + str(uuid.uuid4()) + ".png" ,
+                            null=True, upload_to='./audio-image', storage=gd_storage)
     author = models.ForeignKey(User, on_delete = models.CASCADE)
 
     def __str__(self):
