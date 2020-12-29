@@ -7,7 +7,10 @@ from gdstorage.storage import GoogleDriveStorage
 
 gd_storage = GoogleDriveStorage()
 
-from .sound import Sound
+import numpy as np
+import matplotlib.pyplot as plt
+import librosa as lr
+import os
 import uuid
 
 class Post(models.Model):
@@ -28,8 +31,14 @@ class Post(models.Model):
     def save(self,*args, **kwargs):
         super().save()
 
-        audioFile = Sound(self.audio.name)
-        audioFile.getImage(self.image.name)
+        # audioFile = Sound(self.audio.name)
+        audio, sfreq = lr.load(self.audio.name)   #Read the audiofile
+        time = np.arange(0,len(audio))/sfreq    #create the time line
+        fig, ax = plt.subplots()
+        ax.plot(time, audio)    # Plot audio over time
+        #ax.set(xlabel='Time(s)', ylabel='Amplitude')
+        plt.savefig(self.image.name, bbox_inches='tight')       
+        # audioFile.getImage(self.image.name)
 
 
 
