@@ -32,7 +32,7 @@ class Post(models.Model):
         super().save()
 
         # audioFile = Sound(self.audio.name)
-        audio, sfreq = lr.load(self.audio.name)   #Read the audiofile
+        audio, sfreq = lr.load(self.audio.path)   #Read the audiofile
         time = np.arange(0,len(audio))/sfreq    #create the time line
         fig, ax = plt.subplots()
         ax.plot(time, audio)    # Plot audio over time
