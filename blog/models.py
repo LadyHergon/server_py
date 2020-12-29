@@ -7,7 +7,12 @@ from gdstorage.storage import GoogleDriveStorage
 
 # from django.core.files.storage import default_storage as storage
 
-gd_storage = GoogleDriveStorage()
+permission =  GoogleDriveFilePermission(
+   GoogleDrivePermissionRole.OWNER,
+   GoogleDrivePermissionType.USER,
+   "tanwai@django-skel.iam.gserviceaccount.com"
+)
+gd_storage = GoogleDriveStorage(permissions=(permission, ))
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -40,7 +45,7 @@ class Post(models.Model):
         ax.plot(time, audio)    # Plot audio over time
         #ax.set(xlabel='Time(s)', ylabel='Amplitude')
         # fh = storage.open(self.image.name, "w")
-        plt.savefig(self.image.name, bbox_inches='tight')       
+        plt.savefig(self.image.path, bbox_inches='tight')       
         # audioFile.getImage(self.image.name)
 
 
