@@ -5,9 +5,10 @@ from django.urls import reverse
 
 from gdstorage.storage import GoogleDriveStorage
 
-from django.core.files.storage import default_storage as storage
-
 gd_storage = GoogleDriveStorage()
+
+from StringIO import StringIO
+import django.core.files.ContentFile as ContentFile
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -39,11 +40,17 @@ class Post(models.Model):
         ax.plot(time, audio)    # Plot audio over time
         #ax.set(xlabel='Time(s)', ylabel='Amplitude')
         
-        fileName = './audio-image/' + str(uuid.uuid4()) + ".png" 
-        plt.savefig(fileName, bbox_inches='tight')  
-        fh = storage.open(fileName, "w")
-        self.image.save(fileName, File(fh))
-        fh.close()
+        f = StringIO()
+        plt.savefig(f, bbox_inches='tight')
+        content_file = ContentFile(f.getvalue())
+        fileName = './audio-image/' + str(uuid.uuid4()) + ".png"
+        self.image.save(fileName,content_file)
+
+        # fileName = './audio-image/' + str(uuid.uuid4()) + ".png" 
+        # plt.savefig(fileName, bbox_inches='tight')  
+        # fh = storage.open(fileName, "w")
+        # self.image.save(fileName, File(fh))
+        # fh.close()
         # audioFile.getImage(self.image.name)
 
 
