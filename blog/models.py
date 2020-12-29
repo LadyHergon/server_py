@@ -3,16 +3,11 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
 
-from gdstorage.storage import GoogleDriveStorage, GoogleDrivePermissionType, GoogleDrivePermissionRole, GoogleDriveFilePermission
+from gdstorage.storage import GoogleDriveStorage
 
-# from django.core.files.storage import default_storage as storage
+from django.core.files.storage import default_storage as storage
 
-permission =  GoogleDriveFilePermission(
-   GoogleDrivePermissionRole.OWNER,
-   GoogleDrivePermissionType.USER,
-   "tanwai@django-skel.iam.gserviceaccount.com"
-)
-gd_storage = GoogleDriveStorage(permissions=(permission, ))
+gd_storage = GoogleDriveStorage()
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -25,8 +20,7 @@ class Post(models.Model):
     content = models.TextField()
     date_posted = models.DateTimeField(default=timezone.now)
     audio = models.FileField(null=True, upload_to='./musics')
-    image = models.ImageField(default='audio-image/' + str(uuid.uuid4()) + ".png" ,
-                            null=True, upload_to='audio-image', storage=gd_storage)
+    image = models.ImageField(null=True, upload_to='audio-image', storage=gd_storage) #default='audio-image/' + str(uuid.uuid4()) + ".png" 
     author = models.ForeignKey(User, on_delete = models.CASCADE)
 
     def __str__(self):
@@ -44,8 +38,12 @@ class Post(models.Model):
         fig, ax = plt.subplots()
         ax.plot(time, audio)    # Plot audio over time
         #ax.set(xlabel='Time(s)', ylabel='Amplitude')
-        # fh = storage.open(self.image.name, "w")
-        plt.savefig(self.image.name, bbox_inches='tight')       
+        
+        fileName = './audio-image/' + str(uuid.uuid4()) + ".png" 
+        plt.savefig(fileName, bbox_inches='tight')  
+        fh = storage.open(fileName, "w")
+        self.image.save(fileName, File(fh))
+        fh.close()
         # audioFile.getImage(self.image.name)
 
 
