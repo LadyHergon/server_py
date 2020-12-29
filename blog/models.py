@@ -7,7 +7,7 @@ from gdstorage.storage import GoogleDriveStorage
 
 gd_storage = GoogleDriveStorage()
 
-from io import StringIO
+from io import BytesIO
 from django.core.files.base import ContentFile
 
 import numpy as np
@@ -40,7 +40,7 @@ class Post(models.Model):
         ax.plot(time, audio)    # Plot audio over time
         #ax.set(xlabel='Time(s)', ylabel='Amplitude')
         
-        f = StringIO()
+        f = BytesIO()
         plt.savefig(f, bbox_inches='tight')
         content_file = ContentFile(f.getvalue())
         fileName = './audio-image/' + str(uuid.uuid4()) + ".png"
