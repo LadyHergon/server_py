@@ -5,6 +5,8 @@ from django.urls import reverse
 
 from gdstorage.storage import GoogleDriveStorage
 
+# from django.core.files.storage import default_storage as storage
+
 gd_storage = GoogleDriveStorage()
 
 import numpy as np
@@ -18,8 +20,8 @@ class Post(models.Model):
     content = models.TextField()
     date_posted = models.DateTimeField(default=timezone.now)
     audio = models.FileField(null=True, upload_to='./musics')
-    image = models.ImageField(default='./audio-image/' + str(uuid.uuid4()) + ".png" ,
-                            null=True, upload_to='./audio-image', storage=gd_storage)
+    image = models.ImageField(default='audio-image/' + str(uuid.uuid4()) + ".png" ,
+                            null=True, upload_to='audio-image', storage=gd_storage)
     author = models.ForeignKey(User, on_delete = models.CASCADE)
 
     def __str__(self):
@@ -37,6 +39,7 @@ class Post(models.Model):
         fig, ax = plt.subplots()
         ax.plot(time, audio)    # Plot audio over time
         #ax.set(xlabel='Time(s)', ylabel='Amplitude')
+        # fh = storage.open(self.image.name, "w")
         plt.savefig(self.image.name, bbox_inches='tight')       
         # audioFile.getImage(self.image.name)
 
