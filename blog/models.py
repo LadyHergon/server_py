@@ -28,8 +28,8 @@ class Post(models.Model):
     def save(self,*args, **kwargs):
         super().save()
 
-        audioFile = Sound(self.audio.path)
-        audioFile.getImage(self.image.path)
+        audioFile = Sound(self.audio.name)
+        audioFile.getImage(self.image.name)
 
 
 
