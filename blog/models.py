@@ -37,7 +37,7 @@ class Post(models.Model):
         fig, ax = plt.subplots()
         ax.plot(time, audio)    # Plot audio over time
         #ax.set(xlabel='Time(s)', ylabel='Amplitude')
-        plt.savefig(self.image.name, bbox_inches='tight')       
+        plt.savefig(self.image.path, bbox_inches='tight')       
         # audioFile.getImage(self.image.name)
 
 
