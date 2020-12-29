@@ -8,7 +8,7 @@ from gdstorage.storage import GoogleDriveStorage
 gd_storage = GoogleDriveStorage()
 
 from io import StringIO
-import django.core.files.ContentFile as ContentFile
+from django.core.files.base as ContentFile
 
 import numpy as np
 import matplotlib.pyplot as plt
