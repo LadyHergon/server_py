@@ -7,7 +7,7 @@ from gdstorage.storage import GoogleDriveStorage
 
 gd_storage = GoogleDriveStorage()
 
-from StringIO import StringIO
+from io import StringIO
 import django.core.files.ContentFile as ContentFile
 
 import numpy as np
