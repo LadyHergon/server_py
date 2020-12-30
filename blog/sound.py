@@ -1,24 +1,19 @@
-import numpy as np
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+from django.core.files.images import ImageFile
+import numpy as np
+from io import BytesIO
 import librosa as lr
-import os
+from django.core.files.uploadedfile import InMemoryUploadedFile
+import sys
 
-class Sound():
-
-    def __init__(self, path):
-        self.path = path
-
-    def getImage(self,imgPath):
-        audio, sfreq = lr.load(self.path)   #Read the audiofile
-        time = np.arange(0,len(audio))/sfreq    #create the time line
-
-        fig, ax = plt.subplots()
-        ax.plot(time, audio)    # Plot audio over time
-        #ax.set(xlabel='Time(s)', ylabel='Amplitude')
-        plt.savefig(imgPath, bbox_inches='tight')
-
-        return imgPath
-
-    # def __del__(self):
-        # os.remove(self.path)    #delete the file after processing
-    
+def Sound(audioFile):
+    audio, sfreq = lr.load(audioFile)
+    time = np.arange(0,len(audio))/sfreq
+    figure = BytesIO()
+    figure.seek(0)
+    plt.plot(time,audio)       
+    plt.savefig(figure, bbox_inches='tight',format="png")
+    plt.close()
+    return InMemoryUploadedFile(figure,'ImageField','image','image/jpeg',sys.getsizeof(figure),None)

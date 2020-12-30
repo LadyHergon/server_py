@@ -7,21 +7,12 @@ from gdstorage.storage import GoogleDriveStorage
 
 gd_storage = GoogleDriveStorage()
 
-from io import BytesIO
-from django.core.files.base import ContentFile
-
-import numpy as np
-import matplotlib.pyplot as plt
-import librosa as lr
-import os
-import uuid
-
 class Post(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     date_posted = models.DateTimeField(default=timezone.now)
-    audio = models.FileField(null=True, upload_to='./musics')
-    image = models.ImageField(null=True, upload_to='audio-image', storage=gd_storage) #default='audio-image/' + str(uuid.uuid4()) + ".png" 
+    audio = models.FileField(null=True, upload_to='musics')
+    image = models.ImageField(default="abc.png",null=True, upload_to='audio-image', storage=gd_storage)
     author = models.ForeignKey(User, on_delete = models.CASCADE)
 
     def __str__(self):
@@ -29,29 +20,7 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('post-detail',kwargs={'pk':self.pk})
-
-    def save(self,*args, **kwargs):
-        super().save()
-
-        # audioFile = Sound(self.audio.name)
-        audio, sfreq = lr.load(self.audio.path)   #Read the audiofile
-        time = np.arange(0,len(audio))/sfreq    #create the time line
-        fig, ax = plt.subplots()
-        ax.plot(time, audio)    # Plot audio over time
-        #ax.set(xlabel='Time(s)', ylabel='Amplitude')
         
-        f = BytesIO()
-        plt.savefig(f, bbox_inches='tight')
-        content_file = ContentFile(f.getvalue())
-        fileName = './audio-image/' + str(uuid.uuid4()) + ".png"
-        self.image.save(fileName,content_file)
-
-        # fileName = './audio-image/' + str(uuid.uuid4()) + ".png" 
-        # plt.savefig(fileName, bbox_inches='tight')  
-        # fh = storage.open(fileName, "w")
-        # self.image.save(fileName, File(fh))
-        # fh.close()
-        # audioFile.getImage(self.image.name)
 
 
 
