@@ -5,7 +5,7 @@ from django.views.generic import (
     ListView, DetailView, CreateView, UpdateView, DeleteView
 )
 from .models import Post
-
+from .sound import Sound
 
 
 def home(request):
@@ -32,12 +32,8 @@ class UserPostListView(ListView):
         user = get_object_or_404(User, username = self.kwargs.get('username'))
         return Post.objects.filter(author=user).order_by('-date_posted')
 
-
 class PostDetailView(DetailView):
     model = Post
-
-
-from .sound import Sound
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
