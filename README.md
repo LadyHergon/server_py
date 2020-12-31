@@ -23,7 +23,7 @@ To get started
 * Start the server locally:
     >python manage.py runserver
 
-Temperory Link on Heroku
+Link on Heroku
 https://a17kedjango.herokuapp.com/
 
 Credit to

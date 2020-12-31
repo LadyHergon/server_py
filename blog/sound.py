@@ -14,6 +14,7 @@ def Sound(audioFile):
     figure = BytesIO()
     figure.seek(0)
     plt.plot(time,audio,linewidth=0.25)       
+
     plt.savefig(figure, bbox_inches='tight',format="png")
     plt.close()
     return InMemoryUploadedFile(figure,'ImageField','image','image/jpeg',sys.getsizeof(figure),None)
