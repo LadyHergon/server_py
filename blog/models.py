@@ -4,11 +4,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 from gdstorage.storage import GoogleDriveStorage
-
 gd_storage = GoogleDriveStorage()
-
-from .sound import Sound
-import uuid
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
