@@ -13,7 +13,10 @@ def Sound(audioFile):
     time = np.arange(0,len(audio))/sfreq
     figure = BytesIO()
     figure.seek(0)
-    plt.plot(time,audio,linewidth=0.05)       
+    lineWidth = 8000/len(audio)
+    if lineWidth < 0.01:
+       lineWidth = 0.01
+    plt.plot(time,audio,linewidth=lineWidth)       
 
     plt.savefig(figure, bbox_inches='tight',format="png")
     plt.close()
