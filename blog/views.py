@@ -6,6 +6,8 @@ from django.views.generic import (
 )
 from .models import Post
 
+
+
 def home(request):
     context ={
         'posts' :Post.objects.all()
@@ -33,13 +35,18 @@ class UserPostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
-    
+
+
+from .sound import Sound
+
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['title','content','audio']
 
     def form_valid(self, form):
         form.instance.author =self.request.user
+        
+        form.instance.image = Sound(form.instance.audio)
         return super().form_valid(form)
 
 class PostUpdateView(LoginRequiredMixin,UserPassesTestMixin, UpdateView):
@@ -48,6 +55,7 @@ class PostUpdateView(LoginRequiredMixin,UserPassesTestMixin, UpdateView):
 
     def form_valid(self, form):
         form.instance.author =self.request.user
+        form.instance.image = Sound(form.instance.audio)
         return super().form_valid(form)
 
     def test_func(self):
