@@ -6,7 +6,10 @@ from django.views.generic import (
 )
 from .models import Post
 from .sound import Sound
-
+from .sound import Duration
+from .sound import Fsize
+from .sound import Ftype
+from .sound import SampFreq
 
 def home(request):
     context ={
