@@ -3,3 +3,5 @@ CLI.txt
 __pycache__/
 db.sqlite3
 media/
+0001_initial.py
+
