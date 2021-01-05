@@ -7,9 +7,11 @@ from io import BytesIO
 import librosa as lr
 from django.core.files.uploadedfile import InMemoryUploadedFile
 import sys
+import datetime
+import os
 
 def Sound(audioFile):
-    audio, sfreq = lr.load(audioFile)
+    audio, sfreq = lr.load(audioFile,sr=None)
     time = np.arange(0,len(audio))/sfreq
     figure = BytesIO()
     figure.seek(0)
@@ -20,21 +22,26 @@ def Sound(audioFile):
 
     plt.savefig(figure, bbox_inches='tight',format="png")
     plt.close()
-    return InMemoryUploadedFile(figure,'ImageField','image','image/jpeg',sys.getsizeof(figure),None)
-def Duration(audioFile):
-    Duration = lr.get_duration(y=None, sr=22050, S=None, n_fft=2048, hop_length=512, center=True, filename=audioFile)
-    return Duration
+    return (
+       InMemoryUploadedFile(figure,'ImageField','image','image/jpeg',sys.getsizeof(figure),None),
+       str(datetime.timedelta(seconds=round(lr.get_duration(y=audio, sr=sfreq)))),
+       sfreq/1000,
+    )
 
-def Fsize(audioFile):
-    Fsize = lr.get_samplerate(audioFile)
-    return Fsize
+# def Duration(audioFile):
+#     Duration = lr.get_duration(y=None, sr=22050, S=None, n_fft=2048, hop_length=512, center=True, filename=audioFile)
+#     return str(Duration)
 
-def Ftype(audioFile):
-    rate = 44100
-    data = np.random.uniform(-1, 1, size=(rate * 10, 2))
-    Ftype = sf.write(audioFile, data, lr.get_samplerate(audioFile), subtype='PCM_24')
-    return Ftype
+# def SampFreq(audioFile):
+#     audio, sfreq = lr.load(audioFile)
+#     return str(sfreq)
 
-def SampFreq(audioFile):
-    audio, sfreq = lr.load(audioFile)
-    return sfreq
+# def Fsize(audioFile):
+#     Fsize = lr.get_samplerate(audioFile)
+#     return str(Fsize)
+
+# def Ftype(audioFile):
+#     rate = 44100
+#     data = np.random.uniform(-1, 1, size=(rate * 10, 2))
+#     Ftype = sf.write(audioFile, data, lr.get_samplerate(audioFile), subtype='PCM_24')
+#     return str(Ftype)

@@ -5,6 +5,7 @@ from django.urls import reverse
 
 from gdstorage.storage import GoogleDriveStorage
 gd_storage = GoogleDriveStorage()
+import os
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
@@ -13,6 +14,10 @@ class Post(models.Model):
     audio = models.FileField(null=True, upload_to='musics')
     image = models.ImageField(null=True, upload_to='audio-image')#, storage=gd_storage)
     author = models.ForeignKey(User, on_delete = models.CASCADE)
+    duration = models.TextField()
+    f_size = models.TextField(null=True)
+    f_type = models.TextField(null=True)
+    samp_freq = models.TextField(null=True)
 
     def __str__(self):
         return self.title
@@ -21,8 +26,15 @@ class Post(models.Model):
         return reverse('post-detail',kwargs={'pk':self.pk})
 
 
-    # def save(self,*args, **kwargs):
-    #     super().save()
+    def save(self,*args, **kwargs):
+        super().save()
+
+        self.f_size = os.path.getsize(self.audio.path) >>10
+        print(self.f_size)
+        super(Post, self).save(*args, **kwargs)
+
+
+
 
     #     audioFile = Sound(self.audio.path)
     #     audioFile.getImage(self.image.path)

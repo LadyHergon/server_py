@@ -6,10 +6,6 @@ from django.views.generic import (
 )
 from .models import Post
 from .sound import Sound
-from .sound import Duration
-from .sound import Fsize
-from .sound import Ftype
-from .sound import SampFreq
 
 def home(request):
     context ={
@@ -45,7 +41,13 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author =self.request.user
         
-        form.instance.image = Sound(form.instance.audio)
+        SoundResult =  Sound(form.instance.audio)
+        form.instance.image = SoundResult[0]
+        form.instance.duration = SoundResult[1]
+        form.instance.samp_freq = SoundResult[2]
+        #form.instance.f_size = SoundResult[3]
+        # form.instance.f_type = Ftype(form.instance.audio)
+        
         return super().form_valid(form)
 
 class PostUpdateView(LoginRequiredMixin,UserPassesTestMixin, UpdateView):
@@ -54,7 +56,10 @@ class PostUpdateView(LoginRequiredMixin,UserPassesTestMixin, UpdateView):
 
     def form_valid(self, form):
         form.instance.author =self.request.user
-        form.instance.image = Sound(form.instance.audio)
+        SoundResult =  Sound(form.instance.audio)
+        form.instance.image = SoundResult[0]
+        form.instance.duration = SoundResult[1]
+        form.instance.samp_freq = SoundResult[2]
         return super().form_valid(form)
 
     def test_func(self):
