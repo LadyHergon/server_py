@@ -45,8 +45,6 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         form.instance.image = SoundResult[0]
         form.instance.duration = SoundResult[1]
         form.instance.samp_freq = SoundResult[2]
-        #form.instance.f_size = SoundResult[3]
-        # form.instance.f_type = Ftype(form.instance.audio)
         
         return super().form_valid(form)
 
