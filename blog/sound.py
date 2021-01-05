@@ -16,8 +16,8 @@ def Sound(audioFile):
     figure = BytesIO()
     figure.seek(0)
     lineWidth = 8000/len(audio)
-    if lineWidth < 0.01:
-       lineWidth = 0.01
+    if lineWidth < 0.05:
+       lineWidth = 0.05
     plt.plot(time,audio,linewidth=lineWidth)       
 
     plt.savefig(figure, bbox_inches='tight',format="png")
