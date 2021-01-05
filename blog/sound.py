@@ -21,15 +21,19 @@ def Sound(audioFile):
     plt.savefig(figure, bbox_inches='tight',format="png")
     plt.close()
     return InMemoryUploadedFile(figure,'ImageField','image','image/jpeg',sys.getsizeof(figure),None)
+
 def Duration(audioFile):
+    audio, sfreq = lr.load(audioFile)
     Duration = lr.get_duration(y=None, sr=22050, S=None, n_fft=2048, hop_length=512, center=True, filename=audioFile)
     return Duration
 
 def Fsize(audioFile):
+    audio, sfreq = lr.load(audioFile)
     Fsize = lr.get_samplerate(audioFile)
     return Fsize
 
 def Ftype(audioFile):
+    audio, sfreq = lr.load(audioFile)
     rate = 44100
     data = np.random.uniform(-1, 1, size=(rate * 10, 2))
     Ftype = sf.write(audioFile, data, lr.get_samplerate(audioFile), subtype='PCM_24')
