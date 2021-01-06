@@ -6,7 +6,6 @@ from django.views.generic import (
 )
 from .models import Post
 from .sound import Sound
-from django.views.decorators.csrf import csrf_exempt
 
 def home(request):
     context ={
@@ -35,7 +34,6 @@ class UserPostListView(ListView):
 class PostDetailView(DetailView):
     model = Post
 
-#@csrf_exempt
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['title','content','audio']
@@ -43,6 +41,18 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author =self.request.user
         
+        SoundResult =  Sound(form.instance.audio)
+        form.instance.image = SoundResult[0]
+        form.instance.duration = SoundResult[1]
+        form.instance.samp_freq = SoundResult[2]
+        
+        return super().form_valid(form)
+
+class PhoneCreateView(CreateView):
+    model = Post
+    fields = ['title','content','audio','author']
+
+    def form_valid(self, form):
         SoundResult =  Sound(form.instance.audio)
         form.instance.image = SoundResult[0]
         form.instance.duration = SoundResult[1]
