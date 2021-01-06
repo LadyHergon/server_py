@@ -6,6 +6,7 @@ from django.views.generic import (
 )
 from .models import Post
 from .sound import Sound
+from django.views.decorators.csrf import csrf_exempt
 
 def home(request):
     context ={
@@ -34,6 +35,7 @@ class UserPostListView(ListView):
 class PostDetailView(DetailView):
     model = Post
 
+#@csrf_exempt
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['title','content','audio']

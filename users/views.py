@@ -3,6 +3,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+from django.views.decorators.csrf import csrf_exempt
+
 
 def register(request):
     if request.method == 'POST':
@@ -16,6 +18,7 @@ def register(request):
         form = UserRegisterForm() 
     return render(request, 'users/register.html', {'form': form})
 
+@csrf_exempt
 @login_required
 def profile(request):
     if request.method == 'POST':

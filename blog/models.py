@@ -12,7 +12,7 @@ class Post(models.Model):
     content = models.TextField()
     date_posted = models.DateTimeField(default=timezone.now)
     audio = models.FileField(null=True, upload_to='musics')
-    image = models.ImageField(null=True, upload_to='audio-image', storage=gd_storage)
+    image = models.ImageField(null=True, upload_to='audio-image')#, storage=gd_storage)
     author = models.ForeignKey(User, on_delete = models.CASCADE)
     duration = models.TextField()
     f_size = models.TextField(null=True)
