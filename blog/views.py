@@ -50,13 +50,19 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 class PhoneCreateView(CreateView):
     model = Post
-    fields = ['title','content','audio','author']
+    fields = ['audio']#['title','content','audio','author']
 
     def form_valid(self, form):
+        form.instance.title = self.request.GET.get('title')
+        form.instance.content = self.request.GET.get('content')
+
+
+        user = get_object_or_404(User, username = self.request.GET.get('username'))
+        form.instance.author = user
         SoundResult =  Sound(form.instance.audio)
         form.instance.image = SoundResult[0]
         form.instance.duration = SoundResult[1]
-        form.instance.samp_freq = SoundResult[2]
+        form.instance.samp_freq = SoundResult[2] 
         
         return super().form_valid(form)
 
