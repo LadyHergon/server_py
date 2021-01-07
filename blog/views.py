@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password
@@ -57,7 +58,10 @@ class PhoneCreateView(CreateView):
     fields = ['title','content','audio']
 
     def form_valid(self, form):
-        user = get_object_or_404(User, username = form.instance.title)
+        try:
+            user = User.objects.get(username = form.instance.title)
+        except ObjectDoesNotExist:
+            return HttpResponse("User does not exist")
         valid = user.check_password(form.instance.content)
         if not valid:
             return HttpResponse("Incorrect Pasword")
