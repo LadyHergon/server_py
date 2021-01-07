@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
+from django.contrib.auth.hashers import check_password
 from django.views.generic import (
     ListView, DetailView, CreateView, UpdateView, DeleteView
 )
@@ -38,6 +40,8 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['title','content','audio']
 
+
+
     def form_valid(self, form):
         form.instance.author =self.request.user
         
@@ -50,21 +54,23 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 class PhoneCreateView(CreateView):
     model = Post
-    fields = ['audio']#['title','content','audio','author']
+    fields = ['title','content','audio']
 
     def form_valid(self, form):
-        form.instance.title = self.request.GET.get('title')
-        form.instance.content = self.request.GET.get('content')
-
-
-        user = get_object_or_404(User, username = self.request.GET.get('username'))
+        user = get_object_or_404(User, username = form.instance.title)
+        valid = user.check_password(form.instance.content)
+        if not valid:
+            return HttpResponse("Incorrect Pasword")
         form.instance.author = user
         SoundResult =  Sound(form.instance.audio)
         form.instance.image = SoundResult[0]
         form.instance.duration = SoundResult[1]
-        form.instance.samp_freq = SoundResult[2] 
+        form.instance.title = self.request.GET.get('title')
+        form.instance.content = self.request.GET.get('content')
         
-        return super().form_valid(form)
+        self.object = form.save()
+
+        return HttpResponse("Post Added")
 
 class PostUpdateView(LoginRequiredMixin,UserPassesTestMixin, UpdateView):
     model = Post
