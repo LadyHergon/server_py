@@ -24,7 +24,7 @@ def Sound(audioFile):
     plt.close()
     return (
        InMemoryUploadedFile(figure,'ImageField','image','image/jpeg',sys.getsizeof(figure),None),
-       str(datetime.timedelta(seconds=round(lr.get_duration(y=audio, sr=sfreq)))),
+       str(datetime.timedelta(seconds=lr.get_duration(y=audio, sr=sfreq)))[2:],
        sfreq/1000,
     )
 
