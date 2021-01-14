@@ -16,11 +16,11 @@
         <h2 class="article-title">{{ object.title }}</h2>
         <p class="article-content">{{ object.content }}</p>
         <img style="max-width:100%" src="{{ object.image.url }}">
+        <audio controls>
+            <source src="{{ object.audio.url }}" type="audio/wav">
+            The audio doesn't exist
+        </audio>
         <table>
-            <tr>
-                <th>Audio File</th>
-                <th>: {{ object.audio }}kB</th>
-            </tr>
             <tr>
                 <th>File Size </th>
                 <th>: {{ object.f_size }}kB</th>
