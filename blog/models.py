@@ -14,7 +14,7 @@ class Post(models.Model):
     audio = models.FileField(null=True, upload_to='musics', storage=gd_storage)
     image = models.ImageField(null=True, upload_to='audio-image', storage=gd_storage)
     author = models.ForeignKey(User, on_delete = models.CASCADE)
-    duration = models.CharField(max_length=9)
+    duration = models.CharField(max_length=10)
     # f_size = models.TextField(null=True)
     samp_freq = models.DecimalField(null=True,max_digits=5,decimal_places=2)
 
