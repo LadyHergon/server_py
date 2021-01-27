@@ -11,6 +11,7 @@
             <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
             <p class="article-content">{{ post.content }}</p>
             </div>
+            <img class="ml-auto" style="height:150px" src="{{ post.image.url }}">
         </article>
     {% endfor %}
     {% if is_paginated %}
