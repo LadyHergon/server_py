@@ -38,4 +38,4 @@ Corey Schafer
 Django Google Drive Storage
 >https://django-googledrive-storage.readthedocs.io/en/latest/
 
-![alt text](https://github.com/tanwailiang97/server_py/blob/master/Database%20Table.png)
+![alt text](https://github.com/tanwailiang97/server_py/blob/master/Screenshot%202021-02-26%20130209.png)
