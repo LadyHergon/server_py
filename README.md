@@ -40,7 +40,6 @@ Django Google Drive Storage
 
 ![alt text](https://github.com/tanwailiang97/server_py/blob/master/WhatsApp%20Image%202021-02-24%20at%2022.32.09.jpeg)
 ![alt text](https://github.com/tanwailiang97/server_py/blob/master/Screenshot%202021-02-26%20160537.png)
-
 ![alt text](https://github.com/tanwailiang97/server_py/blob/master/Use%20case.jpeg)
 ![alt text](https://github.com/tanwailiang97/server_py/blob/master/Sequence%20diagram%201.jpeg)
 ![alt text](https://github.com/tanwailiang97/server_py/blob/master/Sequence%20diagram%202.jpeg)
