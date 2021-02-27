@@ -38,8 +38,23 @@ Corey Schafer
 Django Google Drive Storage
 >https://django-googledrive-storage.readthedocs.io/en/latest/
 
-![alt text](https://github.com/tanwailiang97/server_py/blob/master/WhatsApp%20Image%202021-02-24%20at%2022.32.09.jpeg)
-![alt text](https://github.com/tanwailiang97/server_py/blob/master/Screenshot%202021-02-26%20160537.png)
+![alt text](https://github.com/tanwailiang97/server_py/blob/master/DB2.png)
+![alt text](https://github.com/tanwailiang97/server_py/blob/master/DB1.png)
+
+This webpage have the following features
+>using MVT architecture (Model,View,Template)
+>use of OOP
+    -seperate into blog (for audio post), server_py (main controller), users (for user handling)
+    -each function are then seperated into different script file such as views.py, urls.py, sound.py, models.py in blog
+>documentation
+    -the documentation on how to set up the server have been shown above (except MAC OS where I dont have access to)
+>clean code
+    >DRY (do not repeat yourself)
+        -template for the base (blog/base.html) are reused for all page 
+    >KISS (Keep It Simple Stupid)
+        -Django authentication system have been used to reduce the trouble handling session and cookies after user login
+    >Favour readability
+        -Naming of variable which are easily understood like Model name such as audio,image,author, duration which is readable and easily understood
 
 ![alt text](https://github.com/tanwailiang97/server_py/blob/master/Sequence%20diagram%201.jpeg)
 ![alt text](https://github.com/tanwailiang97/server_py/blob/master/Sequence%20diagram%202.jpeg)
