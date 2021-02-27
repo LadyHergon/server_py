@@ -43,6 +43,7 @@ Django Google Drive Storage
 
 This webpage have the following features
 >using MVT architecture (Model,View,Template)
+
 >use of OOP
 
     -seperate into blog (for audio post), server_py (main controller), users (for user handling)
